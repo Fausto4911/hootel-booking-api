@@ -75,6 +75,17 @@ public class ReservationService {
 
     }
 
+    public Reservation cancelReservation(ReserveDAO reserveDAO) {
+        User user = userService.getUserById(reserveDAO.userId());
+        Optional<Reservation> reservationOptional  = reservationRepository.findById(user.getId());
+        if(reservationOptional.isEmpty()) {
+            throw new NotFoundException();
+        }
+
+        reservationRepository.delete(reservationOptional.get());
+        return reservationOptional.get();
+    }
+
     private Boolean isDurationValid(Date startDate, Date endDate) {
         long dateBeforeInMs = startDate.getTime();
         long dateAfterInMs = endDate.getTime();

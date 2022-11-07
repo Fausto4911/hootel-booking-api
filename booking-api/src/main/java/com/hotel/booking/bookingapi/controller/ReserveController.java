@@ -27,4 +27,15 @@ public class ReserveController {
     public ReservationResponseDto reserve(@RequestBody ReserveDAO reserveDAO) {
         return ReservationResponseDto.assembleFromReservation(this.reservationService.reserveHotel(reserveDAO));
     }
+
+    @PutMapping
+    public ReservationResponseDto updateReservation(@RequestBody ReserveDAO reserveDAO) {
+        return ReservationResponseDto.assembleFromReservation(this.reservationService.updateReservation(reserveDAO));
+    }
+
+    @DeleteMapping
+    public ReservationResponseDto cancelReservation(@RequestBody ReserveDAO reserveDAO) {
+        return ReservationResponseDto.assembleFromReservation(this.reservationService.cancelReservation(reserveDAO));
+
+    }
 }

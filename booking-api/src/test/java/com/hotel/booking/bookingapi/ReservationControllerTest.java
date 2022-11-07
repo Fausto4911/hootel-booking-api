@@ -4,6 +4,7 @@ import com.hotel.booking.bookingapi.controller.ReserveController;
 import com.hotel.booking.bookingapi.dao.request.ReserveDAO;
 import com.hotel.booking.bookingapi.dao.response.ReservationResponseDto;
 import com.hotel.booking.bookingapi.entity.*;
+import com.hotel.booking.bookingapi.exception.DurationException;
 import com.hotel.booking.bookingapi.repository.*;
 import com.hotel.booking.bookingapi.service.ReservationService;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class ReservationControllerTest {
@@ -43,7 +46,7 @@ public class ReservationControllerTest {
     }
 
     @Test
-    public void createReservationTest() {
+    public void createReservationDurationExceptionTest() {
         User user = new User();
         user.setUserName("Fausto Torres");
         user = userRepository.save(user);
@@ -64,6 +67,8 @@ public class ReservationControllerTest {
         assertThat(hotel).isNotNull();
         assertThat(hotel).hasFieldOrPropertyWithValue("hotelName", "Bavaro Punta Cana");
 
+        hotel = hotelRepository.save(hotel);
+
 
         Room room = new Room();
         room.setAvailable(true);
@@ -74,13 +79,13 @@ public class ReservationControllerTest {
         assertThat(room).hasFieldOrPropertyWithValue("roomName", "1001");
 
         Date reservationStartDate = new Date(2022,1,5 ); //@JsonFormat(pattern="yyyy-MM-dd")
-        Date reservationEndDate = new Date(2022,1,10);
+        Date reservationEndDate = new Date(2022,1,11);
         ReserveDAO reservation = new ReserveDAO(user.getId(), reservationStartDate, reservationEndDate,hotel.getId());
-        Reservation reservationSaved = reservationService.reserveHotel(reservation);
-        assertThat(reservationSaved).isNotNull();
-        assertThat(reservationSaved).hasFieldOrPropertyWithValue("reservationStartDate", reservationStartDate);
-        assertThat(reservationSaved).hasFieldOrPropertyWithValue("reservationEndDate", reservationEndDate);
 
+
+        Exception exception = assertThrows(DurationException.class, () -> {
+            reservationService.reserveHotel(reservation);
+        });
 
 
     }

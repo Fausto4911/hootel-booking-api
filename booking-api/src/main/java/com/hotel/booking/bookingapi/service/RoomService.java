@@ -5,6 +5,7 @@ import com.hotel.booking.bookingapi.exception.NotFoundException;
 import com.hotel.booking.bookingapi.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -21,16 +22,16 @@ public class RoomService {
     }
 
     public Room getAvailableRoom() throws Exception {
-        Room available = null;
-        this.roomRepository.findAll().forEach(room -> {
-            if (room.getAvailable()) {
-                room = available;
+        Room available = null ;
+        Iterator<Room> iterator = this.roomRepository.findAll().iterator();
+        while(iterator.hasNext()) {
+            if(iterator.next().getAvailable()) {
+                available = iterator.next();
             }
-        });
+        }
         if(available == null) {
             throw new NotFoundException();
         }
-
-        return available;
+       return available;
     }
 }

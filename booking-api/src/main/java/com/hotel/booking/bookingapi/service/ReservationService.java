@@ -5,10 +5,14 @@ import com.hotel.booking.bookingapi.entity.Hotel;
 import com.hotel.booking.bookingapi.entity.Reservation;
 import com.hotel.booking.bookingapi.entity.Room;
 import com.hotel.booking.bookingapi.entity.User;
+import com.hotel.booking.bookingapi.exception.DurationException;
+import com.hotel.booking.bookingapi.exception.ReservationException;
 import com.hotel.booking.bookingapi.repository.ReservationRepository;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 public class ReservationService {
@@ -28,6 +32,11 @@ public class ReservationService {
     }
 
     public Reservation reserveHotel(ReserveDAO reserveDAO) {
+
+        if(!this.isDurationValid(reserveDAO.reservationStartDate(), reserveDAO.reservationEndDate())) {
+            throw new DurationException();
+        }
+
         Hotel hotel = hotelService.getHotelById(reserveDAO.hotelId());
         Reservation reservation = new Reservation();
         reservation.setReservationStartDate(reserveDAO.reservationStartDate());
@@ -39,13 +48,24 @@ public class ReservationService {
             reservation.setRoom(room);
            return reservationRepository.save(reservation);
         } catch (Exception ex) {
-            return null;
+            throw new ReservationException();
         }
 
     }
 
     public List<Reservation> getReservations() {
         return (List<Reservation>) this.reservationRepository.findAll();
+    }
+
+    private Boolean isDurationValid(Date startDate, Date endDate) {
+        long dateBeforeInMs = startDate.getTime();
+        long dateAfterInMs = endDate.getTime();
+
+        long timeDiff = Math.abs(dateAfterInMs - dateBeforeInMs);
+
+        long daysDiff = TimeUnit.DAYS.convert(timeDiff, TimeUnit.MILLISECONDS);
+        if(daysDiff > 5) return false;
+        return true;
     }
 
 }

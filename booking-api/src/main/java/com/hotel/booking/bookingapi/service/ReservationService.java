@@ -6,12 +6,14 @@ import com.hotel.booking.bookingapi.entity.Reservation;
 import com.hotel.booking.bookingapi.entity.Room;
 import com.hotel.booking.bookingapi.entity.User;
 import com.hotel.booking.bookingapi.exception.DurationException;
+import com.hotel.booking.bookingapi.exception.NotFoundException;
 import com.hotel.booking.bookingapi.exception.ReservationException;
 import com.hotel.booking.bookingapi.repository.ReservationRepository;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -55,6 +57,22 @@ public class ReservationService {
 
     public List<Reservation> getReservations() {
         return (List<Reservation>) this.reservationRepository.findAll();
+    }
+
+    public Reservation updateReservation(ReserveDAO reserveDAO) {
+        if(!this.isDurationValid(reserveDAO.reservationStartDate(), reserveDAO.reservationEndDate())) {
+            throw new DurationException();
+        }
+        User user = userService.getUserById(reserveDAO.userId());
+        Optional<Reservation> reservationOptional  = reservationRepository.findById(user.getId());
+        if(reservationOptional.isEmpty()) {
+            throw new NotFoundException();
+        }
+        Reservation reservation = reservationOptional.get();
+        reservation.setReservationStartDate(reserveDAO.reservationStartDate());
+        reservation.setReservationEndDate(reserveDAO.reservationEndDate());
+        return reservationRepository.save(reservation);
+
     }
 
     private Boolean isDurationValid(Date startDate, Date endDate) {

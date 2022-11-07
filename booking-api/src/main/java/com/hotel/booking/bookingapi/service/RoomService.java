@@ -27,6 +27,7 @@ public class RoomService {
         while(iterator.hasNext()) {
             if(iterator.next().getAvailable()) {
                 available = iterator.next();
+                break;
             }
         }
         if(available == null) {

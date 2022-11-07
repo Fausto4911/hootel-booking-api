@@ -1,6 +1,7 @@
 package com.hotel.booking.bookingapi.controller;
 
-import com.hotel.booking.bookingapi.dao.ReserveDAO;
+import com.hotel.booking.bookingapi.dao.request.ReserveDAO;
+import com.hotel.booking.bookingapi.dao.response.ReservationResponseDto;
 import com.hotel.booking.bookingapi.entity.Reservation;
 import com.hotel.booking.bookingapi.service.ReservationService;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class ReserveController {
     }
 
     @PostMapping
-    public Reservation reserve(@RequestBody ReserveDAO reserveDAO) {
-        return this.reservationService.reserveHotel(reserveDAO);
+    public ReservationResponseDto reserve(@RequestBody ReserveDAO reserveDAO) {
+        return ReservationResponseDto.assembleFromReservation(this.reservationService.reserveHotel(reserveDAO));
     }
 }

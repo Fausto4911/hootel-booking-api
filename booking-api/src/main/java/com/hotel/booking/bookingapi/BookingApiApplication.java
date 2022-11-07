@@ -20,13 +20,22 @@ public class BookingApiApplication {
 	public CommandLineRunner demo(UserRepository repository, UserController userController) {
 		return (args) -> {
 			// save a few customers
-			System.out.println(" >>>>>>>>>>>>>>>>>>>>>>> demo insert ");
+			System.out.println(" >>>>>>>>>>>>>>>>>>>>>>> demo inserting users ");
 			User user = new User();
-			user.setUserName("Fausto");
-			repository.save(user);
-			System.out.println(" >>>>>>>>>>>>>>>>>>>>>>> demo insert end");
+			user.setUserName("Fausto Torres");
 
-			System.out.println(userController.getUsers());
+			User user2 = new User();
+			user2.setUserName("Nahara Rosario");
+
+			User user3 = new User();
+			user3.setUserName("Gertrudis Diaz");
+
+			repository.save(user);
+			repository.save(user2);
+			repository.save(user3);
+			System.out.println(" >>>>>>>>>>>>>>>>>>>>>>> demo inserting users");
+//			System.out.println(" >>>>>>>>>>>>>>>>>>>>>>> demo insert ");
+//			System.out.println(userController.getUsers());
 		};
 	}
 

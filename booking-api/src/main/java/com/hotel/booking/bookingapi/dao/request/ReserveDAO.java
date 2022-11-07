@@ -1,4 +1,4 @@
-package com.hotel.booking.bookingapi.dao;
+package com.hotel.booking.bookingapi.dao.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

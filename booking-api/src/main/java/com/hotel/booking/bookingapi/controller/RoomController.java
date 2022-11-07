@@ -1,7 +1,5 @@
 package com.hotel.booking.bookingapi.controller;
 
-import com.hotel.booking.bookingapi.dao.ReserveDAO;
-import com.hotel.booking.bookingapi.entity.Reservation;
 import com.hotel.booking.bookingapi.entity.Room;
 import com.hotel.booking.bookingapi.service.RoomService;
 import org.springframework.web.bind.annotation.*;

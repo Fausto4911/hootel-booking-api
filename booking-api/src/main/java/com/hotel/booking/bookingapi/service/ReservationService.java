@@ -1,6 +1,6 @@
 package com.hotel.booking.bookingapi.service;
 
-import com.hotel.booking.bookingapi.dao.ReserveDAO;
+import com.hotel.booking.bookingapi.dao.request.ReserveDAO;
 import com.hotel.booking.bookingapi.entity.Hotel;
 import com.hotel.booking.bookingapi.entity.Reservation;
 import com.hotel.booking.bookingapi.entity.Room;

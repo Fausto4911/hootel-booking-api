@@ -19,6 +19,11 @@ public class Hotel {
     private Set<Room> rooms;
 
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "countries_id", referencedColumnName = "id")
+    private Country country;
+
+
     public Long getId() {
         return id;
     }
@@ -43,7 +48,13 @@ public class Hotel {
         this.rooms = rooms;
     }
 
+    public Country getCountry() {
+        return country;
+    }
 
+    public void setCountry(Country country) {
+        this.country = country;
+    }
 
     @Override
     public String toString() {

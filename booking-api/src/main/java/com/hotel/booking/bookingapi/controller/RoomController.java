@@ -1,10 +1,10 @@
 package com.hotel.booking.bookingapi.controller;
 
+import com.hotel.booking.bookingapi.dao.ReserveDAO;
+import com.hotel.booking.bookingapi.entity.Reservation;
 import com.hotel.booking.bookingapi.entity.Room;
 import com.hotel.booking.bookingapi.service.RoomService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ public class RoomController {
 
     public final RoomService roomService;
 
+
     public RoomController(RoomService roomService) {
         this.roomService = roomService;
     }
@@ -22,4 +23,6 @@ public class RoomController {
     public List<Room> getRooms(){
         return this.roomService.getRooms();
     }
+
+
 }

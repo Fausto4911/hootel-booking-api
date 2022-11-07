@@ -23,7 +23,7 @@ public class ReserveController {
     }
 
     @PostMapping
-    public Reservation Reserve(@RequestBody ReserveDAO reserveDAO) {
+    public Reservation reserve(@RequestBody ReserveDAO reserveDAO) {
         return this.reservationService.reserveHotel(reserveDAO);
     }
 }

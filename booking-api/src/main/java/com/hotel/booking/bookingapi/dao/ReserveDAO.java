@@ -4,7 +4,7 @@ import java.util.Date;
 
 
 public record ReserveDAO(
-        String userName,
+        Long userId,
         Date reservationStartDate,
         Date reservationEndDate,
         Long hotelId

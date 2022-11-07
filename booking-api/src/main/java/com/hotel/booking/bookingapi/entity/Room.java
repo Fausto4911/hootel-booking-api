@@ -18,7 +18,8 @@ public class Room {
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
-    @OneToOne(mappedBy = "room")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "reservation_id", referencedColumnName = "id")
     private Reservation reservation;
 
     private Boolean available;

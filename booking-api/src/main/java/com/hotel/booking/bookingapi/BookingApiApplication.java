@@ -61,6 +61,7 @@ public class BookingApiApplication {
 				room.setAvailable(true);
 				room.setHotel(hotel);
 				room.setRoomName("000" + i);
+				roomRepository.save(room);
 				rooms.add(room);
 			}
 			hotel.setRooms(rooms);
@@ -76,6 +77,7 @@ public class BookingApiApplication {
 				room.setAvailable(true);
 				room.setHotel(hotel2);
 				room.setRoomName("000" + i);
+				roomRepository.save(room);
 				rooms2.add(room);
 			}
 			hotel2.setRooms(rooms2);
@@ -91,6 +93,7 @@ public class BookingApiApplication {
 				room.setAvailable(true);
 				room.setHotel(hotel3);
 				room.setRoomName("000" + i);
+				roomRepository.save(room);
 				rooms3.add(room);
 			}
 			hotel3.setRooms(rooms3);
@@ -106,6 +109,7 @@ public class BookingApiApplication {
 				room.setAvailable(true);
 				room.setHotel(hotel4);
 				room.setRoomName("000" + i);
+				roomRepository.save(room);
 				rooms4.add(room);
 			}
 			hotel4.setRooms(rooms4);
@@ -121,6 +125,7 @@ public class BookingApiApplication {
 				room.setAvailable(true);
 				room.setHotel(hotel5);
 				room.setRoomName("000" + i);
+				roomRepository.save(room);
 				rooms5.add(room);
 			}
 			hotel5.setRooms(rooms5);

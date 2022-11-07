@@ -18,9 +18,9 @@ public class Room {
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "reservation_id", referencedColumnName = "id")
-    private Reservation reservation;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "reservation_id", referencedColumnName = "id")
+//    private Reservation reservation;
 
     private Boolean available;
 
@@ -58,13 +58,13 @@ public class Room {
         this.available = available;
     }
 
-    public Reservation getReservation() {
-        return reservation;
-    }
-
-    public void setReservation(Reservation reservation) {
-        this.reservation = reservation;
-    }
+//    public Reservation getReservation() {
+//        return reservation;
+//    }
+//
+//    public void setReservation(Reservation reservation) {
+//        this.reservation = reservation;
+//    }
 
     @Override
     public String toString() {
